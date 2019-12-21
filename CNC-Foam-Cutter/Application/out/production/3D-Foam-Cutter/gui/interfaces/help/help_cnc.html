@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+<head>
+    <style>
+        body {
+            background-color: #fff3aa;
+        }
+    </style>
+</head>
+
+<body>
+    <h1><center> - User Help - </center></h1>
+
+    <h2>Table of Contents:</h2>
+    <ul>
+        <li><h3><a href="#c1">Router Machine</a></h3></li>
+        <li><h3><a href="#c2">Uploading Your Model</a></h3></li>
+        <li><h3><a href="#c3">The Model Tab</a></h3></li>
+        <li><h3><a href="#c4">The G-code Tab</a></h3></li>
+        <li><h3><a href="#c5">The Tracer Tab</a></h3></li>
+        <li><h3><a href="#c6">Software We Use</a></h3></li>
+    </ul>
+
+    <br/>
+    <hr/>
+    <br/>
+
+
+    <h2 id="c1">Router System</h2>
+
+    <h3>Safety information</h3>
+    <p>In case of emergency please press the emergency stop button FIRST, before proceeding to stop the streaming process.
+        The emergency stop button kills all power to the machine (this includes the router), the control board is powered through
+        the computer so it is also important to pause/stop the streaming process. If you'd like to stall the machine
+        please send a "!" command from the <a href="#4">G-code Tab</a>, this stalls the next instruction, but not the current one!</p>
+    <br/>
+
+    <h3>Calibrating</h3>
+    <p>You should zero the machine by moving to the southwest corner of the foam and moving the endmill down until it is about to touch the base.
+        Do not move it so far that it actually touches the base or you will damage the machine.
+        Once it is in this position, zero the machine by pressing Spacebar while on the <a href="#4">G-code Tab</a> as specified below.
+        Then proceed to move the endmill up and position your foam. Please read the rest of this section before attempting this.</p>
+    <br/>
+    <p>To move the machine you can send G-code commands or move it using your keyboard while on the <a href="#4">G-code Tab</a>.
+        To move it using your keyboard you must first enable the keyboard movement option, which allows you to move:</p>
+    <li>W for +Y</li>
+    <li>A for -X</li>
+    <li>S for -Y</li>
+    <li>D for +X</li>
+    <li>P for +Z (Up)</li>
+    <li>L for -Z (Down)</li>
+    <li>R for RESET = $X</li>
+    <li>SPACEBAR for Reset Zero Location</li>
+    <p>Additionally, you can set by how many steps the machine will move, and you can edit configurations through our config file.
+        Please do not touch the config file unless you know what you are doing. You are encouraged to look up information about grbl to get more acquainted
+        with the machine.</p>
+    <br/>
+
+    <h3>Foam Positioning for CNC</h3>
+    <p>The foam should be larger than your model to cut but smaller than the maximum size of the machine (18"x29"x8" max).
+        In the case of cutting from an STL file, please make sure the model fits inside the foam you have chosen and that the foam fits inside the machine.
+        The machine will cut your model in the center of the foam you provide and at the top of the foam if the model height is less than the foam height.
+        Place the machine in the center of every axis. This helps the machine not to go outside of bounds, however it is imperative to be present during
+        cutting in case of emergencies. This machine uses absolute coordinates only for stl files, for gcode files, this is up to you.</p>
+    <p>In case of cutting from a gcode file, you must position it according to your model's needs. It is imperative to be present during cutting
+        in case of emergencies, and it is recommended to conduct small tests to get familiar with the system.</p>
+    <br/>
+
+    <h3>Start Cutting</h3>
+    <p>To start cutting make power is running through the machine and you've zero'd it out to your desired position by pressing SPACEBAR to zero out.
+        Now you can flip the switch on the router and the endmill will start spinning, by no means should you ever touch the endmill. For some cuts, you might
+        need to start the router and then move it into the foam in a -Z direction, then zero it out, then start the cut. This is completely acceptable, and
+        recommended for STL file cuts. To convert STL files to G-code we are using an open source software called Slic3r TM, we'd like to remind you
+        no software is perfect, and if you'd like to get an extremely professional cut you should provide your own G-code.</p>
+
+    <br/>
+    <hr/>
+    <br/>
+
+
+    <h2 id="c2">Uploading Your Model</h2>
+
+    <h3>Model Format</h3>
+    <p>Our software takes as input a .STL file or .gcode file.
+        If you choose to create a .STL model, you must set Solidworks to use MMGS units; one unit equals one millimeter of foam.
+        You must also orient your axes such that the Z axis is pointing up, and the Y axis is the long horizontal axis of your model.
+        You must also ensure that your model is top-heavy; usually this means that the base of your model is on the top. Because our endmill cuts straight down, we cannot cut out a chunk of foam at the bottom of the block without cutting out everything above it.</p>
+    <p>If you choose to use a .gcode file, it will be assumed that the instructions are in relative coordinates. You can set them to absolute coordinates by including a G90 command at the beginning of your file.
+        You are only allowed to put one gcode instruction per line, for example, "G90 G21 G0 X50" is not acceptable and will be ignored.
+        The max size in millimeters is (+/- 292mm (X) by +/- 431mm (Y) by 0->330mm (Z)) assuming you zero at the center of the X and Y axes and the bottom of the Z axis.</p>
+    <br/>
+
+    <h3>Uploading the Model</h3>
+    <p>To upload the file you can simply drag the file onto the Model Upload page. You can also
+        paste the path to this file in the search bar or click choose and select the file you need.
+        It should follow the appropriate format.
+        It is important to set accurate dimensions for your foam so you can visualize the cut into the foam before printing.</p>
+
+    <br/>
+    <hr/>
+    <br/>
+
+
+    <h2 id="c3">The Model Tab</h2>
+
+    <h3>Information Overview</h3>
+    <p>In this tab, you can view information you've provided us such as NID, description, plus other useful information like the size of the
+        file, the file name, the print job's current progress, and time remaining.</p>
+    <br/>
+
+    <h3>Model Preview</h3>
+    <p>This page includes a 3D rendering of the model if it is an stl file, or just an indication it is a gcode file. You can click and drag the 3D model to rotate it.</p>
+    <br/>
+
+    <h3>Progress Indication</h3>
+    <p>There is a progress percentage in the Model tab for your use, there is also an estimate of the time remaining to complete the job.</p>
+
+    <br/>
+    <hr/>
+    <br/>
+
+
+    <h2 id="c4">The G-code Tab</h2>
+
+    <h3>Keyboard Controls</h3>
+    <p>To move the machine you can send G-code commands or move it using your keyboard while on the <a href="#4">G-code Tab</a>.
+        To move it using your keyboard you must first enable keyboard movement option by clicking the checkbox, which allows you to move:</p>
+    <li>W for +Y</li>
+    <li>A for -X</li>
+    <li>S for -Y</li>
+    <li>D for +X</li>
+    <li>P for +Z (Up)</li>
+    <li>L for -Z (Down)</li>
+    <li>R for RESET = $X</li>
+    <li>SPACEBAR for Reset Zero Location</li>
+    <br/>
+
+    <h3>G-code Streaming</h3>
+    <p>We stream G-code based on the recommended Grbl streaming protocol. You can see instructions as they move in the first black box and you can also give your own commands
+        that will be prioritized over the next instruction to be sent. In the second black box you will see responses to the commands you sent. Any
+        instruction should be typed in the smallest black box.</p>
+    <br/>
+
+    <h3>G-code Queries</h3>
+    <p>To ask the machine where it currently is, please send a "?" command in the command-line box. You can press enter or click the button to send.
+        You can halt the machine by sending a "!" command.
+        You can also send any other gcode instruction as a query.</p>
+
+    <br/>
+    <hr/>
+    <br/>
+
+
+    <h2 id="c5">The Tracer Tab</h2>
+
+    <h3>Spindle Tracing</h3>
+    <p>We've provided a preview of the machine's cuts by drawing lines between the points that the machine moves. This is a good way to see how our machine
+        has cut into the foam so far, you can even run with the machine turned off if you want to see your result before cutting anything at all!</p>
+    <br/>
+
+    <h3>Status Indication</h3>
+    <p>Under the tracing drawing, you are able to see the last movement that Grbl made as well as its current status.</p>
+
+    <br/>
+    <hr/>
+    <br/>
+
+
+    <h2 id="c6">Software We Use</h2>
+
+    <h3>How Slic3r Works</h3>
+    <p>Slic3r is a 3D printing software that converts STL file into G-code. To use 3D printing for CNC milling, we cut the shape into the foam. This is
+        why this software best performs "undercuts". If you're going to be using Slicer for your milling needs, it's best to run tests to get familiar with it.</p>
+    <br/>
+
+    <h3>How Grbl Works</h3>
+    <p>Grbl is a G-code compiler written in C designed for Arduino UNO / Duemillanova. This compiler interprets G-code commands sent through our interface in file
+        form through command line. We'd like to remind you that no software is perfect, Grbl only works for a subset of G-code compilable instructions and we've
+        made sure any command that goes through is modified/deleted if it does not comply. If a certain parameter of an instruction won't comply but the overall command
+        works then we will only modify that parameter.</p>
+    <br/>
+    <hr/>
+
+</body>
+
+</html>
